@@ -1,0 +1,7 @@
+# Datasource
+spring: 
+  datasource: 
+    url: jdbc:h2:file:~/todolist
+    username: todolist
+    password: todolist
+    driver-class-name: org.h2.Driver
