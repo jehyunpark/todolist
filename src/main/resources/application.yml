@@ -5,3 +5,11 @@ spring:
     username: todolist
     password: todolist
     driver-class-name: org.h2.Driver
+  jpa:
+    database: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  data:
+    rest:
+      base-path: /api
