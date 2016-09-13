@@ -1,15 +1,64 @@
-# Datasource
+spring.profiles.active: ${mode:production}
+
+#info: 
+#  app.name: Todolist
+#  app.description: JehyunPark's todolist
+#  build.name: todolist
+#  build.version: 0.0.1.RELEASE
+  
 spring: 
-  datasource: 
-    url: jdbc:h2:file:~/todolist
-    username: todolist
-    password: todolist
+  application.name: Todolist
+  datasource:
+    initialize: false
+    sql-script-encoding: UTF-8  
     driver-class-name: org.h2.Driver
   jpa:
     database: H2
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
   data:
     rest:
       base-path: /api
+server:
+  port: ${port:9090}
+#  session-timeout: 86400
+  error:
+    whitelabel:
+      enabled: false
+
+---
+# Profile: local(local environment)
+spring:
+  profiles: local
+  datasource: 
+    url: jdbc:h2:file:~/todolist;CACHE_SIZE=10240;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=15000;MVCC=true;     
+    username: todolist
+    password: todolist
+  jpa:
+    show-sql: true
+      
+---
+# Profile: test(Unit test environment)
+spring:
+  profiles: test
+#  profiles.include: logging-debug
+  datasource:   
+    url: jdbc:h2:mem:todolist;CACHE_SIZE=10240;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=15000     
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+server:
+  port: 0
+
+---
+# Profile: production(Todolist production mode)
+spring:
+  profiles: production
+#  profiles.include: logging-info, logging-daily
+  datasource:
+    url: jdbc:h2:file:~/todolist;CACHE_SIZE=10240;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=15000;MVCC=true;     
+    username: todolist    
+    password: todolist
