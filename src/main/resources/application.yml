@@ -15,8 +15,6 @@ spring:
   jpa:
     database: H2
     show-sql: false
-    hibernate:
-      ddl-auto: update
   data:
     rest:
       base-path: /api
@@ -37,17 +35,19 @@ spring:
     password: todolist
   jpa:
     show-sql: true
-      
+    hibernate:
+      ddl-auto: update
 ---
 # Profile: test(Unit test environment)
 spring:
   profiles: test
 #  profiles.include: logging-debug
   datasource:   
-    url: jdbc:h2:mem:todolist;CACHE_SIZE=10240;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=15000     
+    url: jdbc:h2:mem:todolist-db;CACHE_SIZE=10240;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=15000     
     username: sa
     password:
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: create-drop
 server:
@@ -62,3 +62,6 @@ spring:
     url: jdbc:h2:file:~/todolist;CACHE_SIZE=10240;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=15000;MVCC=true;     
     username: todolist    
     password: todolist
+  jpa:
+    hibernate:
+      ddl-auto: update
