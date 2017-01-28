@@ -37,21 +37,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
----
-# Profile: test(Unit test environment)
-spring:
-  profiles: test
-#  profiles.include: logging-debug
-  datasource:   
-    url: jdbc:h2:mem:todolist-db;CACHE_SIZE=10240;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=15000     
-    username: sa
-    password:
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
-server:
-  port: 0
 
 ---
 # Profile: production(Todolist production mode)
@@ -65,3 +50,19 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+---
+# Profile: test(Unit test environment)
+spring:
+  profiles: test
+#  profiles.include: logging-debug
+  datasource:
+    url: jdbc:h2:mem:todolist-db;CACHE_SIZE=10240;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=15000
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+server:
+  port: 0
